@@ -141,7 +141,7 @@ if st.button("Submit"):
                     df[f'{col}_norm'] = df[col] / (df['total_time'] + 1e-5)
 
                 test_dfs = df.sample(frac=1)
-                testfeatures = [col for col in test_dfs.columns if 'norm' in col]
+                testfeatures = [col for col in test_dfs.columns if 'norm' in col or 'mean' in col or 'std' in col]
                 X_test2 = test_dfs[testfeatures]
                 y_test2 = test_dfs['password']
 
