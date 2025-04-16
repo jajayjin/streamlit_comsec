@@ -1,3 +1,3 @@
 import streamlit as st
 
-st.title("Login Successfull✅")
+st.title("Login Successful✅")

@@ -4,7 +4,7 @@ import json
 import streamlit.components.v1 as components
 import pickle
 
-st.title("🔐 Keystroke Dynamics Collector (Real-Time)")
+st.title("🔐 Keystroke Dynamics Authentication")
 
 st.markdown("""
 Type the password into the field below. This will record:
@@ -21,7 +21,7 @@ if "sample_number" not in st.session_state:
     st.session_state.sample_number = 1
 
 user_id = st.text_input("User ID", value="user_Test")
-password_ref = st.text_input("Reference Password (what user should type)", value="ict555")
+password_ref = st.text_input("Reference Password", value="ict555")
 
 # JavaScript to record key events
 components.html("""
@@ -126,7 +126,7 @@ if st.button("Submit"):
 
                 df = pd.DataFrame(st.session_state.samples)
 
-                with open('comsec_model.pkl', 'rb') as f:
+                with open('comsec_model_final.pkl', 'rb') as f:
                     model = pickle.load(f)
                 st.dataframe(df)
 
