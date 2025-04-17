@@ -126,7 +126,7 @@ if st.button("Submit"):
 
                 df = pd.DataFrame(st.session_state.samples)
 
-                with open('comsec_model_final.pkl', 'rb') as f:
+                with open('comsec_model.pkl', 'rb') as f:
                     model = pickle.load(f)
                 st.dataframe(df)
 
@@ -135,13 +135,12 @@ if st.button("Submit"):
                 df['std_dwell'] = df[[f'dwell_{i}' for i in range(7)]].std(axis=1)
                 df['mean_flight'] = df[[f'flight_{i}' for i in range(6)]].mean(axis=1)
                 df['std_flight'] = df[[f'flight_{i}' for i in range(6)]].std(axis=1)
-                for i in range(6):
-                    df[f'dwell_to_flight_ratio_{i}'] = df[f'dwell_{i}'] / (df[f'flight_{i}'] + 1e-5)
+                
                 for col in [f'dwell_{i}' for i in range(7)] + [f'flight_{i}' for i in range(6)]:
                     df[f'{col}_norm'] = df[col] / (df['total_time'] + 1e-5)
 
                 test_dfs = df.sample(frac=1)
-                testfeatures = [col for col in test_dfs.columns if 'norm' in col or 'mean' in col or 'std' in col]
+                testfeatures = [col for col in test_dfs.columns if 'norm' in col]
                 X_test2 = test_dfs[testfeatures]
                 y_test2 = test_dfs['password']
 
